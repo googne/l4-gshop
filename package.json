@@ -1,0 +1,22 @@
+{
+  "name": "gshop",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/googne/l4-gshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/googne/l4-gshop/issues"
+  },
+  "homepage": "https://github.com/googne/l4-gshop#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
