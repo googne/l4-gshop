@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
+import Display from '../components/Display'
 import { listProductDetails } from '../actions/productActions'
 
-const ProductScreen = () => {
-  const { id } = useParams()
+const ProductScreen = ({ match }) => {
   const dispatch = useDispatch()
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetail
   )
-  // const { loading, error, product } = productDetails
 
   useEffect(() => {
-    dispatch(listProductDetails(id))
+    dispatch(listProductDetails(match.params.id))
   }, [dispatch])
 
   return (
@@ -26,9 +23,7 @@ const ProductScreen = () => {
         <i className='fa fa-arrow-left mr-1' />
         Go Back
       </Link>
-      {loading && <Loader />}
-      {!loading && error && <Message variant='danger'>{error}</Message>}
-      {!loading && !error && (
+      <Display loading={loading} error={error}>
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
@@ -85,7 +80,7 @@ const ProductScreen = () => {
             </Card>
           </Col>
         </Row>
-      )}
+      </Display>
     </>
   )
 }

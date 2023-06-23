@@ -19,17 +19,6 @@ const Rating = ({ value, text, color }) => {
         </span>
       ))}
       <span>{text && text}</span>
-      {/* <span>
-        <i
-          className={
-            value >= 1
-              ? 'fas fa-star'
-              : value >= 0.5
-              ? 'fas fa-start-half-alt'
-              : 'far fa-star'
-          }
-        />
-      </span> */}
     </div>
   )
 }
@@ -39,7 +28,7 @@ Rating.defaultProps = {
 }
 
 Rating.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
 }
