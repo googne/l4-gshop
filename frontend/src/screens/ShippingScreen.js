@@ -7,7 +7,7 @@ import Display from '../components/Display'
 import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 
-const ShippingScreen = ({ location, history }) => {
+const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
