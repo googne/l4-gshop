@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Display from '../components/Display'
-import FormContainer from '../components/FormContainer'
+import FormContainer from '../components/core/FormContainer'
 import { login } from '../actions/userActions'
-import Loader from '../components/Loader'
+import Loader from '../components/core/Loader'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('')
@@ -16,14 +16,14 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  const isRedirect = userInfo ? Object.keys(userInfo).length !== 0 : false
+  // const isRedirect = userInfo ? Object.keys(userInfo).length !== 0 : false
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    if (isRedirect) {
+    if (userInfo) {
       history.push(redirect)
     }
-  }, [history, userInfo, redirect, isRedirect])
+  }, [history, userInfo, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
