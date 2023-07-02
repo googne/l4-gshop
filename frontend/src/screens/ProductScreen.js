@@ -31,7 +31,7 @@ const ProductScreen = ({ history, match }) => {
         <i className='fa fa-arrow-left mr-1' />
         Go Back
       </Link>
-      <Display loading={loading} error={error}>
+      <Display loading={loading} message={{ error }}>
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
