@@ -58,7 +58,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 /**
  * @desc Update order toPaid
- * @route GET /api/orders/:id/pay
+ * @route PUT /api/orders/:id/pay
  * @access Private
  */
 const updateOrderToPaid = asyncHandler(async (req, res) => {
@@ -69,9 +69,9 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     order.paidAt = Date.now()
     order.paymentResult = {
       id: req.body.id,
-      status: red.body.status,
-      update_time: red.body.update_time,
-      email_address: red.body.payer.email_address,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
     }
 
     const updatedOrder = await order.save()
@@ -82,4 +82,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 })
 
-export { addOrderItems, getOrderById, updateOrderToPaid }
+/**
+ * @desc Get loggedIn User Orders
+ * @route GET /api/orders/myorders
+ * @access Private
+ */
+const getUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id })
+  res.json(orders)
+})
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getUserOrders }
