@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Display from '../components/Display'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/core/Message'
 import ListGroupItem from '../components/core/ListGroupItem'
+import { createOrder } from '../actions/orderActions'
+import Loader from '../components/core/Loader'
 
 const PlaceOrderScreen = ({ history }) => {
+  const dispatch = useDispatch()
+
   const cart = useSelector((state) => state.cart)
+
   const {
     cartItems,
     shippingAddress: { address, city, postalCode, country },
@@ -38,8 +42,28 @@ const PlaceOrderScreen = ({ history }) => {
 
   cart.totalPrice = Number(cart.totalPrice).toFixed(2)
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { loading, order, success, error } = orderCreate
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`)
+    }
+    // eslint-disable-next-line
+  }, [history, success])
+
   const placeOrderHandler = () => {
-    console.log('place order')
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
   }
 
   return (
@@ -103,12 +127,21 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <h2> Order Summary</h2>
               </ListGroup.Item>
+
               <ListGroupItem label='Items'>$ {cart.itemsPrice}</ListGroupItem>
+
               <ListGroupItem label='Shipping'>
                 $ {cart.shippingPrice}
               </ListGroupItem>
+
               <ListGroupItem label='Tax'>$ {cart.taxPrice}</ListGroupItem>
+
               <ListGroupItem label='Total'>$ {cart.totalPrice}</ListGroupItem>
+
+              <ListGroup.Item>
+                {error && <Message variant='danger'>{error}</Message>}
+              </ListGroup.Item>
+
               <ListGroup.Item>
                 <Button
                   type='button'
@@ -116,6 +149,7 @@ const PlaceOrderScreen = ({ history }) => {
                   disabled={cartItems === 0}
                   onClick={placeOrderHandler}
                 >
+                  {loading && <Loader size='sm' />}
                   Place Order
                 </Button>
               </ListGroup.Item>

@@ -10,12 +10,19 @@ const Display = ({
 }) => {
   return (
     <>
-      {loading && <Loader />}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        children
+      )}
+      {/* {loading && <Loader />}
       {!loading && custom && <Message variant='warning'>{custom}</Message>}
       {!loading && empty && <Message variant='info'>No Data Found</Message>}
       {!loading && success && <Message variant='success'>{success}</Message>}
       {!loading && error && <Message variant='danger'>{error}</Message>}
-      {childDisplay === 'force' ? children : !loading && !error && children}
+      {childDisplay === 'force' ? children : !loading && !error && children} */}
     </>
   )
 }
