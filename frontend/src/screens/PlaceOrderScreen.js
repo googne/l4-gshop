@@ -20,27 +20,20 @@ const PlaceOrderScreen = ({ history }) => {
   } = cart
 
   //calculate Price
-  const addDecimal = (num) => {
+  const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
 
-  cart.itemsPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0
+  cart.itemsPrice = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   )
-
-  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 100
-  cart.taxPrice = Number((0.15 * cart.itemsPrice).toFixed(2))
-  cart.totalPrice = 0
-
-  Object.keys(cart).map((k) => {
-    if (k.endsWith('Price')) {
-      cart[k] = addDecimal(cart[k])
-      cart.totalPrice = Number(cart.totalPrice) + Number(cart[k])
-    }
-  })
-
-  cart.totalPrice = Number(cart.totalPrice).toFixed(2)
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
+  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
+  cart.totalPrice = (
+    Number(cart.itemsPrice) +
+    Number(cart.shippingPrice) +
+    Number(cart.taxPrice)
+  ).toFixed(2)
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { loading, order, success, error } = orderCreate

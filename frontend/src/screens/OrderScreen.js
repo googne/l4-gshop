@@ -2,15 +2,13 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Display from '../components/Display'
 import Message from '../components/core/Message'
 import ListGroupItem from '../components/core/ListGroupItem'
-import { getOrderDetail } from '../actions/orderActions'
+import { getOrderDetails } from '../actions/orderActions'
 import Loader from '../components/core/Loader'
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id
-
   const dispatch = useDispatch()
 
   const orderDetails = useSelector((state) => state.orderDetails)
@@ -21,9 +19,7 @@ const OrderScreen = ({ match }) => {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2)
     }
-    // order.itemsPrice = addDecimal(
-    //   order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    // )
+
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     )
@@ -31,7 +27,7 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     if (orderId) {
-      dispatch(getOrderDetail(orderId))
+      dispatch(getOrderDetails(orderId))
     }
   }, [dispatch, orderId])
 
@@ -42,17 +38,31 @@ const OrderScreen = ({ match }) => {
   ) : (
     <>
       <h1>Order: {order._id}</h1>
-      {/* <Row>
+      <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
+              <p>
+                <strong>Name: </strong> {order.user.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              </p>
               <p>
                 <strong>Address: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}
                 {order.shippingAddress.postalCode},
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant='danger'>Not Delivered</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -61,6 +71,11 @@ const OrderScreen = ({ match }) => {
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
+              {order.isPaid ? (
+                <Message variant='success'>Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant='danger'>Not Paid</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -115,7 +130,7 @@ const OrderScreen = ({ match }) => {
             </ListGroup>
           </Card>
         </Col>
-      </Row> */}
+      </Row>
     </>
   )
 }
