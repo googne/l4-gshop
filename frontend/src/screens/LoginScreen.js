@@ -8,8 +8,8 @@ import Loader from '../components/core/Loader'
 import Message from '../components/core/Message'
 
 const LoginScreen = ({ location, history }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('admin@example.com')
+  const [password, setPassword] = useState('123')
 
   const dispatch = useDispatch()
 

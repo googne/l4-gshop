@@ -9,12 +9,16 @@ import ListGroupItem from '../components/core/ListGroupItem'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
 import Loader from '../components/core/Loader'
 import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import MailTo from '../components/core/MailTo'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
   const [sdkReady, setSdkReady] = useState(false)
 
   const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
@@ -27,13 +31,16 @@ const OrderScreen = ({ match }) => {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
 
-  if (!loading) {
+  if (!loading && order) {
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     )
   }
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')
@@ -56,7 +63,7 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, order, successPay, orderId])
+  }, [dispatch, history, userInfo, order, successPay, orderId])
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
@@ -79,7 +86,7 @@ const OrderScreen = ({ match }) => {
               </p>
               <p>
                 <strong>Email: </strong>
-                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                <MailTo email={order.user.email} />
               </p>
               <p>
                 <strong>Address: </strong>

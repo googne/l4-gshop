@@ -13,6 +13,7 @@ import {
   LOGIN_USER_ORDER_LIST_REQUEST,
   LOGIN_USER_ORDER_LIST_SUCCESS,
   LOGIN_USER_ORDER_LIST_RESET,
+  ORDER_DETAILS_RESET,
 } from '../constants/orderConstants'
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -29,7 +30,7 @@ export const orderCreateReducer = (state = {}, action) => {
 }
 
 export const orderDetailsReducer = (
-  state = { loading: true, orderItems: [], shippingAddress: {} },
+  state = { loading: true, orderItems: {}, shippingAddress: {} },
   action
 ) => {
   switch (action.type) {
@@ -39,6 +40,8 @@ export const orderDetailsReducer = (
       return { loading: false, order: action.payload }
     case ORDER_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    case ORDER_DETAILS_RESET:
+      return { loading: true, orderItems: {}, shippingAddress: {} }
     default:
       return state
   }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 
 const FormGroup = (props) => {
-  const { name } = props
+  const { name, md } = props
   const capitalName =
     name.slice(0, 1).toUpperCase() + name.slice(1, name.length)
   let camelName = name.replaceAll(' ', '')
@@ -10,16 +10,27 @@ const FormGroup = (props) => {
     camelName.slice(0, 1).toLowerCase() + camelName.slice(1, camelName.length)
 
   return (
-    <Form.Group controlId={camelName} className='pb-4'>
-      <Form.Label>{capitalName}</Form.Label>
-      <Form.Control
-        type='text'
-        {...props}
-        name={camelName}
-        placeholder={`Enter ${capitalName}`}
-      ></Form.Control>
-    </Form.Group>
+    <>
+      <Col md={md}>
+        <Form.Group controlId={camelName} className='pb-4'>
+          <Form.Label>
+            <strong>{capitalName}</strong>
+          </Form.Label>
+          <Form.Control
+            type='text'
+            {...props}
+            name={camelName}
+            placeholder={`Enter ${capitalName}`}
+            onChange={(e) => props.onChange(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+      </Col>
+    </>
   )
+}
+
+FormGroup.defaultProps = {
+  md: 12,
 }
 
 export default FormGroup

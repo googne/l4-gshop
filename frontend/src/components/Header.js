@@ -1,13 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 
 const Header = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -15,7 +13,6 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout())
-    history.push('/')
   }
 
   return (
@@ -36,9 +33,37 @@ const Header = () => {
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item>
+                      <i className='fa fa-user-circle mr-1'></i>
+                      My Profile
+                    </NavDropdown.Item>
                   </LinkContainer>
+                  {userInfo.isAdmin && (
+                    <>
+                      <NavDropdown.Divider />
+                      <LinkContainer to='/admin/userlist'>
+                        <NavDropdown.Item>
+                          <i className='fa fa-users mr-1'></i>
+                          Users
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/productlist'>
+                        <NavDropdown.Item>
+                          <i className='fa fa-database mr-1'></i>
+                          Products
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/orderlist'>
+                        <NavDropdown.Item>
+                          <i className='fa fa-th-list mr-1'></i>
+                          Orders
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                    </>
+                  )}
+                  <NavDropdown.Divider />
                   <NavDropdown.Item onClick={logoutHandler}>
+                    <i className='fa fa-sign-out-alt mr-1'></i>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -49,6 +74,19 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
+              {/* {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )} */}
             </Nav>
           </Navbar.Collapse>
         </Container>

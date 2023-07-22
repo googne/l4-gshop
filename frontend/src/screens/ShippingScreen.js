@@ -33,26 +33,21 @@ const ShippingScreen = ({ history }) => {
         <FormGroup
           name='address'
           value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={setAddress}
           required
         />
-        <FormGroup
-          name='city'
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-        />
+        <FormGroup name='city' value={city} onChange={setCity} required />
         <FormGroup
           type='number'
           name='Postal Code'
           value={postalCode}
-          onChange={(e) => setPostalCode(e.target.value)}
+          onChange={setPostalCode}
           required
         />
         <FormGroup
           name='country'
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={setCountry}
           required
         />
 
