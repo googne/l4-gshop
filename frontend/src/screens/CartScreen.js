@@ -89,7 +89,7 @@ const CartScreen = ({ match, location, history }) => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              $
+              <strong>Total Price: </strong>$
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
@@ -102,6 +102,7 @@ const CartScreen = ({ match, location, history }) => {
                 onClick={checkoutHandler}
               >
                 Proceed To Checkout
+                <i className='fa fa-arrow-right ml-2'></i>
               </Button>
             </ListGroup.Item>
           </ListGroup>

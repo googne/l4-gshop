@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
@@ -8,6 +7,7 @@ import { getUserDetails, updateUser } from '../actions/userActions'
 import Loader from '../components/core/Loader'
 import FormGroup from '../components/core/FormGroup'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
+import BackButton from '../components/core/Button/BackButton'
 
 const UserEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -54,12 +54,13 @@ const UserEditScreen = ({ match, history }) => {
     )
   }
 
+  const goBackHandler = () => {
+    history.goBack()
+  }
+
   return (
     <>
-      <Link className='btn btn-light my-3' to='/admin/userlist'>
-        <i className='fa fa-arrow-left mr-1' />
-        Go Back
-      </Link>
+      <BackButton onClick={goBackHandler} />
       <FormContainer>
         <h1>Edit User</h1>
         {loading ? (

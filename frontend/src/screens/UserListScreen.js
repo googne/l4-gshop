@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import { deleteUser, listUsers } from '../actions/userActions'
 import Loader from '../components/core/Loader'
 import MailTo from '../components/core/MailTo'
 import StatusIcon from '../components/core/StatusIcon'
+import IconButton from '../components/core/Button/IconButton'
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -49,7 +49,7 @@ const UserListScreen = ({ history }) => {
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
-              <th></th>
+              <th>ACTIVITY</th>
             </tr>
           </thead>
           <tbody>
@@ -68,19 +68,14 @@ const UserListScreen = ({ history }) => {
                     <h4 className='text-success'>LOGGEDIN USER</h4>
                   ) : (
                     <>
-                      <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                        <Button className='btn-sm' variant='light'>
-                          <i className='fas fa-edit'></i>
-                        </Button>
-                      </LinkContainer>
-
-                      <Button
-                        className='btn-sm'
-                        variant='danger'
+                      <IconButton
+                        type='edit'
+                        link={`/admin/user/${user._id}/edit`}
+                      />
+                      <IconButton
+                        type='delete'
                         onClick={() => deleteHandler(user._id)}
-                      >
-                        <i className='fas fa-trash'></i>
-                      </Button>
+                      />
                     </>
                   )}
                 </td>

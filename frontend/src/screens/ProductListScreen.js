@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Row, Col, Table, Button } from 'react-bootstrap'
+import { Row, Col, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import Loader from '../components/core/Loader'
@@ -10,6 +9,8 @@ import {
   createProduct,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import CreateButton from '../components/core/Button/CreateButton'
+import IconButton from '../components/core/Button/IconButton'
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -73,10 +74,11 @@ const ProductListScreen = ({ history, match }) => {
           <h1>Products</h1>
         </Col>
         <Col className='text-right'>
-          <Button className='my-3' onClick={createProductHandler}>
-            {loadingCreate && <Loader size='sm' />}
-            <i className='fas fa-plus'></i> Create Product
-          </Button>
+          <CreateButton
+            name='Product'
+            onClick={createProductHandler}
+            loader={loadingCreate}
+          />
         </Col>
       </Row>
       {loading ? (
@@ -87,7 +89,6 @@ const ProductListScreen = ({ history, match }) => {
         <>
           {loadingDelete && <Loader />}
           {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
-          {/* {loadingCreate && <Loader />}  */}
           {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
 
           <Table striped bordered hover responsive className='table-sm'>
@@ -98,7 +99,7 @@ const ProductListScreen = ({ history, match }) => {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                <th></th>
+                <th>ACTIVITY</th>
               </tr>
             </thead>
             <tbody>
@@ -110,19 +111,36 @@ const ProductListScreen = ({ history, match }) => {
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button className='btn-sm' variant='light'>
+                    <IconButton
+                      type='edit'
+                      link={`/admin/product/${product._id}/edit`}
+                    />
+                    <IconButton
+                      type='delete'
+                      onClick={() => deleteHandler(product._id)}
+                    />
+                    <IconButton
+                      type='detail'
+                      link={`/product/${product._id}`}
+                    />
+                    {/* <Button
+                      type='delete'
+                      onClick={() => deleteHandler(product._id)}
+                    />
+                    <Button type='detail' onClick={`/product/${product._id}`} /> */}
+
+                    {/* <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                      <Button className='IconButton-sm' variant='light'>
                         <i className='fas fa-edit'></i>
                       </Button>
-                    </LinkContainer>
-
-                    <Button
-                      className='btn-sm'
+                    </LinkContainer> */}
+                    {/* <Button
+                      className='IconButton-sm'
                       variant='danger'
                       onClick={() => deleteHandler(product._id)}
                     >
                       <i className='fas fa-trash'></i>
-                    </Button>
+                    </Button> */}
                   </td>
                 </tr>
               ))}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import Display from '../components/Display'
 import { listProductDetails } from '../actions/productActions'
+import BackButton from '../components/core/Button/BackButton'
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
@@ -25,12 +25,13 @@ const ProductScreen = ({ history, match }) => {
     history.push(`/cart/${productId}?qty=${qty}`)
   }
 
+  const goBackHandler = () => {
+    history.goBack()
+  }
+
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
-        <i className='fa fa-arrow-left mr-1' />
-        Go Back
-      </Link>
+      <BackButton onClick={goBackHandler} />
       <Display loading={loading} message={{ error }}>
         <Row>
           <Col md={6}>
@@ -96,11 +97,11 @@ const ProductScreen = ({ history, match }) => {
                 )}
                 <ListGroup.Item>
                   <Button
-                    onClick={addToCartHandler}
                     className='btn-block'
-                    type='button'
                     disabled={product.countInStock === 0}
+                    onClick={addToCartHandler}
                   >
+                    <i className='fa fa-cart-plus mr-1'></i>
                     Add to Cart
                   </Button>
                 </ListGroup.Item>

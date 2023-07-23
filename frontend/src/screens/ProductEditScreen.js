@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
@@ -9,6 +8,7 @@ import Loader from '../components/core/Loader'
 import FormGroup from '../components/core/FormGroup'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import { listProductDetails, updateProduct } from '../actions/productActions'
+import BackButton from '../components/core/Button/BackButton'
 
 const ProductEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -91,12 +91,13 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }
 
+  const goBackHandler = () => {
+    history.goBack()
+  }
+
   return (
     <>
-      <Link className='btn btn-light my-3' to='/admin/productlist'>
-        <i className='fa fa-arrow-left mr-1' />
-        Go Back
-      </Link>
+      <BackButton onClick={goBackHandler} />
       <FormContainer md='8'>
         <h1>Edit Product</h1>
         {loading ? (

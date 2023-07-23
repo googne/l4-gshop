@@ -53,3 +53,57 @@ h2 {
 .text-dark {
   color: #212529 !important;
 }
+/* success
+.text-info
+.text-danger */
+
+/* TOOLTIP CUSTOM COLOR */
+#tooltip-success > .tooltip-inner {
+  background-color: #198754;
+  border: 1px solid #198754;
+  color: white;
+}
+
+#tooltip-success > .arrow:before {
+  border-top-color: #198754 !important;
+}
+
+#tooltip-info > .tooltip-inner {
+  background-color: #1f9bcf;
+  border: 1px solid #1f9bcf;
+  color: white;
+}
+
+#tooltip-info > .arrow:before {
+  border-top-color: #1f9bcf !important;
+}
+
+#tooltip-danger > .tooltip-inner {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
+}
+
+#tooltip-danger > .arrow:before {
+  border-top-color: #dc3545 !important;
+}
+
+#tooltip-warning > .tooltip-inner {
+  background-color: #ffc107;
+  border: 1px solid #ffc107;
+  color: white;
+}
+
+#tooltip-warning > .arrow:before {
+  border-top-color: #ffc107 !important;
+}
+
+#tooltip-primary > .tooltip-inner {
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  color: white;
+}
+
+#tooltip-primary > .arrow:before {
+  border-top-color: #0d6efd !important;
+}
