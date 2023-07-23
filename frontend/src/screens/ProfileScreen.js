@@ -11,7 +11,7 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import StatusIcon from '../components/core/StatusIcon'
 import FormGroup from '../components/core/FormGroup'
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
