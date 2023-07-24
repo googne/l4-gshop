@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import StatusIcon from './core/StatusIcon'
 
 const NavItem = ({ link, name, isVisible }) => {
   const nameLink = name.toLowerCase().replaceAll(' ', '')
@@ -8,10 +9,17 @@ const NavItem = ({ link, name, isVisible }) => {
     <Nav.Item>
       {isVisible ? (
         <LinkContainer to={`/${link || nameLink}`}>
-          <Nav.Link>{name}</Nav.Link>
+          <Nav.Link>
+            {name}
+            <StatusIcon condition={true} circle={true} />
+            {/* <i className='fa fa-arrow-right ml-3 pl-3'></i> */}
+          </Nav.Link>
         </LinkContainer>
       ) : (
-        <Nav.Link disabled>{name}</Nav.Link>
+        <Nav.Link disabled>
+          {name}
+          <StatusIcon condition={false} circle={true} />
+        </Nav.Link>
       )}
     </Nav.Item>
   )

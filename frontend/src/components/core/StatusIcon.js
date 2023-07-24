@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StatusIcon = ({ condition, children }) => {
+const StatusIcon = ({ condition, circle, children }) => {
   const color = condition ? 'green' : 'red'
   return (
     <>
@@ -8,7 +8,9 @@ const StatusIcon = ({ condition, children }) => {
         children
       ) : (
         <i
-          className={`fas fa-${condition ? 'check' : 'times'}`}
+          className={`fa fa-${condition ? 'check' : 'times'}${
+            circle && '-circle ml-1'
+          }`}
           style={{ color }}
         ></i>
       )}

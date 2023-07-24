@@ -26,37 +26,39 @@ const ShippingScreen = ({ history }) => {
   }
 
   return (
-    <FormContainer>
+    <>
       <CheckoutSteps step1 step2 />
-      <h1>Shipping</h1>
-      <Form onSubmit={submitHandler}>
-        <FormInput
-          name='address'
-          value={address}
-          onChange={setAddress}
-          required
-        />
-        <FormInput name='city' value={city} onChange={setCity} required />
-        <FormInput
-          type='number'
-          name='Postal Code'
-          value={postalCode}
-          onChange={setPostalCode}
-          required
-        />
-        <FormInput
-          name='country'
-          value={country}
-          onChange={setCountry}
-          required
-        />
+      <FormContainer>
+        <h1>Shipping</h1>
+        <Form onSubmit={submitHandler}>
+          <FormInput
+            name='address'
+            value={address}
+            onChange={setAddress}
+            required
+          />
+          <FormInput name='city' value={city} onChange={setCity} required />
+          <FormInput
+            type='number'
+            name='Postal Code'
+            value={postalCode}
+            onChange={setPostalCode}
+            required
+          />
+          <FormInput
+            name='country'
+            value={country}
+            onChange={setCountry}
+            required
+          />
 
-        <Button type='submit' variant='primary'>
-          Continue
-          <i className='fa fa-arrow-right ml-1' />
-        </Button>
-      </Form>
-    </FormContainer>
+          <Button type='submit' variant='primary'>
+            Continue
+            <i className='fa fa-arrow-right ml-1' />
+          </Button>
+        </Form>
+      </FormContainer>
+    </>
   )
 }
 
