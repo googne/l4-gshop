@@ -123,24 +123,6 @@ const ProductListScreen = ({ history, match }) => {
                       type='detail'
                       link={`/product/${product._id}`}
                     />
-                    {/* <Button
-                      type='delete'
-                      onClick={() => deleteHandler(product._id)}
-                    />
-                    <Button type='detail' onClick={`/product/${product._id}`} /> */}
-
-                    {/* <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button className='IconButton-sm' variant='light'>
-                        <i className='fas fa-edit'></i>
-                      </Button>
-                    </LinkContainer> */}
-                    {/* <Button
-                      className='IconButton-sm'
-                      variant='danger'
-                      onClick={() => deleteHandler(product._id)}
-                    >
-                      <i className='fas fa-trash'></i>
-                    </Button> */}
                   </td>
                 </tr>
               ))}

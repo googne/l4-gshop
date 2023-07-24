@@ -138,18 +138,15 @@ const ProfileScreen = ({ history }) => {
                     <td>{order.createdAt.substring(0, 10)}</td>
                     <td>{order.totalPrice}</td>
                     <td>
-                      {order.isPaid ? (
-                        order.paidAt.substring(0, 10)
-                      ) : (
-                        <StatusIcon condition={false} />
-                      )}
+                      <StatusIcon condition={order.isPaid}>
+                        {(order.isPaid && order.paidAt.substring(0, 10)) || ''}
+                      </StatusIcon>
                     </td>
                     <td>
-                      {order.isDelivered ? (
-                        order.deliveredAt.substring(0, 10)
-                      ) : (
-                        <StatusIcon condition={false} />
-                      )}
+                      <StatusIcon condition={order.isDelivered}>
+                        {order.isDelivered &&
+                          order.deliveredAt.substring(0, 10)}
+                      </StatusIcon>
                     </td>
                     <td>
                       <LinkContainer to={`/order/${order._id}`}>
