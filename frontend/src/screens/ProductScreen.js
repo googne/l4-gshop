@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import Display from '../components/Display'
 import { listProductDetails } from '../actions/productActions'
 import BackButton from '../components/core/Button/BackButton'
+import Loader from '../components/core/Loader'
+import Message from '../components/core/Message'
+import Paragraph from '../components/core/Paragraph'
+import Price from '../components/core/Price/Price'
+import Heading from '../components/core/Heading'
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
@@ -32,7 +36,11 @@ const ProductScreen = ({ history, match }) => {
   return (
     <>
       <BackButton onClick={goBackHandler} />
-      <Display loading={loading} message={{ error }}>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
@@ -48,52 +56,40 @@ const ProductScreen = ({ history, match }) => {
                   text={`${product.numReviews} reviews`}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Price:</strong> ${product.price}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <strong>Description:</strong> {product.description}
-              </ListGroup.Item>
+              <Paragraph listItem='true' heading='Price'>
+                <Price value={product.price} />
+              </Paragraph>
+              <Paragraph listItem='true'>
+                <Heading value='Description' />
+                {product.description}
+              </Paragraph>
             </ListGroup>
           </Col>
           <Col md={3}>
             <Card>
               <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Price:</Col>
-                    <Col>
-                      <strong>${product.price}</strong>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Status:</Col>
-                    <Col>
-                      {product.countInStock > 0 ? 'In' : 'Out Of'} Stock
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
+                <Paragraph listItem='true' heading='Description'>
+                  <Price value={product.price} />
+                </Paragraph>
+
+                <Paragraph listItem='true' heading='Status'>
+                  {product.countInStock > 0 ? 'In' : 'Out Of'} Stock
+                </Paragraph>
+
                 {product.countInStock > 0 && (
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Qty:</Col>
-                      <Col>
-                        <Form.Control
-                          as='select'
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(product.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
+                  <Paragraph listItem='true' heading='Qty'>
+                    <Form.Control
+                      as='select'
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Paragraph>
                 )}
                 <ListGroup.Item>
                   <Button
@@ -109,7 +105,7 @@ const ProductScreen = ({ history, match }) => {
             </Card>
           </Col>
         </Row>
-      </Display>
+      )}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Col } from 'react-bootstrap'
 
-const FormGroup = (props) => {
+const FormInput = (props) => {
   const { name, md } = props
   const capitalName =
     name.slice(0, 1).toUpperCase() + name.slice(1, name.length)
@@ -29,8 +29,8 @@ const FormGroup = (props) => {
   )
 }
 
-FormGroup.defaultProps = {
+FormInput.defaultProps = {
   md: 12,
 }
 
-export default FormGroup
+export default FormInput

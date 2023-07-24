@@ -9,7 +9,9 @@ import Loader from '../components/core/Loader'
 import Message from '../components/core/Message'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import StatusIcon from '../components/core/StatusIcon'
-import FormGroup from '../components/core/FormGroup'
+import FormInput from '../components/core/FormInput'
+import Price from '../components/core/Price/Price'
+import Date from '../components/core/Date'
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -89,15 +91,15 @@ const ProfileScreen = ({ history }) => {
               {message && <Message variant='warning'>{message}</Message>}
               {success && <Message variant='success'>Profile Updated</Message>}
               <Form onSubmit={submitHandler}>
-                <FormGroup name='name' value={name} onChange={setName} />
-                <FormGroup name='email' value={email} onChange={setEmail} />
-                <FormGroup
+                <FormInput name='name' value={name} onChange={setName} />
+                <FormInput name='email' value={email} onChange={setEmail} />
+                <FormInput
                   type='password'
                   name='password'
                   value={password}
                   onChange={setPassword}
                 />
-                <FormGroup
+                <FormInput
                   type='password'
                   name='Confirm Password'
                   value={confirmPassword}
@@ -135,8 +137,12 @@ const ProfileScreen = ({ history }) => {
                 {orders.map((order) => (
                   <tr key={order._id}>
                     <td>{order._id}</td>
-                    <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>{order.totalPrice}</td>
+                    <td>
+                      <Date value={order.createdAt} />
+                    </td>
+                    <td>
+                      <Price value={order.totalPrice} />
+                    </td>
                     <td>
                       <StatusIcon condition={order.isPaid}>
                         {(order.isPaid && order.paidAt.substring(0, 10)) || ''}

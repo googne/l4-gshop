@@ -5,7 +5,7 @@ import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
 import { getUserDetails, updateUser } from '../actions/userActions'
 import Loader from '../components/core/Loader'
-import FormGroup from '../components/core/FormGroup'
+import FormInput from '../components/core/FormInput'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
 import BackButton from '../components/core/Button/BackButton'
 
@@ -71,8 +71,8 @@ const UserEditScreen = ({ match, history }) => {
           <>
             {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
             <Form onSubmit={submitHandler}>
-              <FormGroup name='name' value={name} onChange={setName} />
-              <FormGroup name='email' value={email} onChange={setEmail} />
+              <FormInput name='name' value={name} onChange={setName} />
+              <FormInput name='email' value={email} onChange={setEmail} />
 
               <Form.Group controlId='isadmin'>
                 <Form.Check

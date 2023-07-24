@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/core/FormContainer'
-import Display from '../components/Display'
 import { savePaymentMethod } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
+import Message from '../components/core/Message'
 
-const PaymentScreen = ({ location, history }) => {
+const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
@@ -31,21 +31,21 @@ const PaymentScreen = ({ location, history }) => {
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
       <h1>Payment Method</h1>
-      <Display message={{ error }} childDisplay='force'>
-        <Form onSubmit={submitHandler}>
-          <Form.Group className='pb-4'>
-            <Form.Label as='legend'>Select Method</Form.Label>
-            <Col>
-              <Form.Check
-                type='radio'
-                label='PayPal or Credit Card'
-                id='PayPal'
-                name='paymentMethod'
-                value='PayPal'
-                checked
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              />
-              {/* <Form.Check
+      {error && <Message variant='danger'>{error}</Message>}
+      <Form onSubmit={submitHandler}>
+        <Form.Group className='pb-4'>
+          <Form.Label as='legend'>Select Method</Form.Label>
+          <Col>
+            <Form.Check
+              type='radio'
+              label='PayPal or Credit Card'
+              id='PayPal'
+              name='paymentMethod'
+              value='PayPal'
+              checked
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+            {/* <Form.Check
                 type='radio'
                 label='Stripe'
                 id='Stripe'
@@ -53,15 +53,14 @@ const PaymentScreen = ({ location, history }) => {
                 value='Stripe'
                 onChange={(e) => setPaymentMethod(e.target.value)}
               /> */}
-            </Col>
-          </Form.Group>
+          </Col>
+        </Form.Group>
 
-          <Button type='submit' variant='primary'>
-            Continue
-            <i className='fa fa-arrow-right ml-1' />
-          </Button>
-        </Form>
-      </Display>
+        <Button type='submit' variant='primary'>
+          Continue
+          <i className='fa fa-arrow-right ml-1' />
+        </Button>
+      </Form>
     </FormContainer>
   )
 }

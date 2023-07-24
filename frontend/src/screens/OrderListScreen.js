@@ -7,6 +7,8 @@ import IconButton from '../components/core/Button/IconButton'
 import { listOrders } from '../actions/orderActions'
 import StatusIcon from '../components/core/StatusIcon'
 import NA from '../components/core/NA'
+import Price from '../components/core/Price/Price'
+import Date from '../components/core/Date'
 
 const OrderListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -50,16 +52,20 @@ const OrderListScreen = ({ history, match }) => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{(order.user && order.user.name) || <NA />}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>${order.totalPrice}</td>
+                  <td>
+                    <Date value={order.createdAt} />
+                  </td>
+                  <td>
+                    <Price value={order.totalPrice} />
+                  </td>
                   <td>
                     <StatusIcon condition={order.isPaid}>
-                      {(order.isPaid && order.paidAt.substring(0, 10)) || ''}
+                      {order.isPaid && <Date value={order.paidAt} />}
                     </StatusIcon>
                   </td>
                   <td>
                     <StatusIcon condition={order.isDelivered}>
-                      {order.isDelivered && order.deliveredAt.substring(0, 10)}
+                      {order.isDelivered && <Date value={order.deliveredAt} />}
                     </StatusIcon>
                   </td>
                   <td>

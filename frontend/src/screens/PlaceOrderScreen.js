@@ -4,9 +4,11 @@ import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/core/Message'
-import ListGroupItem from '../components/core/ListGroupItem'
+import PriceList from '../components/core/Price/PriceList'
 import { createOrder } from '../actions/orderActions'
 import Loader from '../components/core/Loader'
+import Paragraph from '../components/core/Paragraph'
+import PriceDescription from '../components/core/Price/PriceDescription'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -67,18 +69,14 @@ const PlaceOrderScreen = ({ history }) => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p>
-                <strong>Address: </strong>
+              <Paragraph heading='Address'>
                 {address}, {city}, {postalCode}, {country}
-              </p>
+              </Paragraph>
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <p>
-                <strong>Method: </strong>
-                {paymentMethod}
-              </p>
+              <Paragraph heading='Payment Method'>{paymentMethod}</Paragraph>
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -104,7 +102,7 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} X ${item.price} = ${item.qty * item.price}
+                          <PriceDescription qty={item.qty} price={item.price} />
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -121,15 +119,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <h2> Order Summary</h2>
               </ListGroup.Item>
 
-              <ListGroupItem label='Items'>$ {cart.itemsPrice}</ListGroupItem>
-
-              <ListGroupItem label='Shipping'>
-                $ {cart.shippingPrice}
-              </ListGroupItem>
-
-              <ListGroupItem label='Tax'>$ {cart.taxPrice}</ListGroupItem>
-
-              <ListGroupItem label='Total'>$ {cart.totalPrice}</ListGroupItem>
+              <PriceList data={cart} />
 
               <ListGroup.Item>
                 {error && <Message variant='danger'>{error}</Message>}

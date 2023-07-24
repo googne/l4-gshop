@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Message from '../components/core/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
+import Price from '../components/core/Price/Price'
+import Paragraph from '../components/core/Paragraph'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -48,7 +50,9 @@ const CartScreen = ({ match, location, history }) => {
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>{item.price}</Col>
+                  <Col md={2}>
+                    <Price value={item.price} />
+                  </Col>
                   <Col md={2}>
                     <Form.Control
                       as='select'
@@ -89,10 +93,13 @@ const CartScreen = ({ match, location, history }) => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              <strong>Total Price: </strong>$
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
+              <Paragraph heading='Total Price'>
+                <Price
+                  value={cartItems
+                    .reduce((acc, item) => acc + item.qty * item.price, 0)
+                    .toFixed(2)}
+                />
+              </Paragraph>
             </ListGroup.Item>
             <ListGroup.Item>
               <Button

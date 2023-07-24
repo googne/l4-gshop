@@ -6,6 +6,7 @@ import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
 import { register } from '../actions/userActions'
 import Loader from '../components/core/Loader'
+import FormInput from '../components/core/FormInput'
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -45,46 +46,20 @@ const RegisterScreen = ({ location, history }) => {
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='name' className='pb-4'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter Name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='email' className='pb-4'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter Email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='password' className='pb-4'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='confirmPassword' className='pb-4'>
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter Confirm Password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
+        <FormInput name='name' value={name} onChange={setName} />
+        <FormInput name='email' value={email} onChange={setEmail} />
+        <FormInput
+          type='password'
+          name='password'
+          value={password}
+          onChange={setPassword}
+        />
+        <FormInput
+          type='password'
+          name='Confirm Password'
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+        />
         <Button type='submit' variant='primary'>
           {loading && <Loader size='sm' />}
           Register

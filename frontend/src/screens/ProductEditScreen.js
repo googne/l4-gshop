@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
 import Loader from '../components/core/Loader'
-import FormGroup from '../components/core/FormGroup'
+import FormInput from '../components/core/FormInput'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import BackButton from '../components/core/Button/BackButton'
@@ -86,7 +86,6 @@ const ProductEditScreen = ({ match, history }) => {
       setImage(data)
       setUploading(false)
     } catch (error) {
-      console.log(error)
       setUploading(false)
     }
   }
@@ -97,8 +96,8 @@ const ProductEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <BackButton onClick={goBackHandler} />
       <FormContainer md='8'>
+        <BackButton onClick={goBackHandler} />
         <h1>Edit Product</h1>
         {loading ? (
           <Loader />
@@ -109,17 +108,17 @@ const ProductEditScreen = ({ match, history }) => {
             {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
             <Form onSubmit={submitHandler}>
               <Row>
-                <FormGroup name='name' value={name} onChange={setName} />
+                <FormInput name='name' value={name} onChange={setName} />
               </Row>
               <Row>
-                <FormGroup
+                <FormInput
                   md={6}
                   type='number'
                   name='price'
                   value={price}
                   onChange={setPrice}
                 />
-                <FormGroup
+                <FormInput
                   md={6}
                   type='number'
                   name='Count InStock'
@@ -128,13 +127,13 @@ const ProductEditScreen = ({ match, history }) => {
                 />
               </Row>
               <Row>
-                <FormGroup
+                <FormInput
                   md={6}
                   name='brand'
                   value={brand}
                   onChange={setBrand}
                 />
-                <FormGroup
+                <FormInput
                   md={6}
                   name='category'
                   value={category}
@@ -142,7 +141,14 @@ const ProductEditScreen = ({ match, history }) => {
                 />
               </Row>
               <Row>
-                <Col md={6}>
+                <FormInput
+                  md={6}
+                  name='Image URL'
+                  value={image}
+                  onChange={setImage}
+                />
+
+                {/* <Col md={6}>
                   <Form.Group controlId='image'>
                     <Form.Label>
                       <strong>Image URL</strong>
@@ -154,7 +160,7 @@ const ProductEditScreen = ({ match, history }) => {
                       onChange={(e) => setImage(e.target.value)}
                     ></Form.Control>
                   </Form.Group>
-                </Col>
+                </Col> */}
                 <Col md={6}>
                   <Form.Group controlId='image'>
                     <Form.Label>

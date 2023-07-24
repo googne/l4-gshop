@@ -1,6 +1,21 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
-import NavItem from './core/NavItem'
+import { LinkContainer } from 'react-router-bootstrap'
+
+const NavItem = ({ link, name, isVisible }) => {
+  const nameLink = name.toLowerCase().replaceAll(' ', '')
+  return (
+    <Nav.Item>
+      {isVisible ? (
+        <LinkContainer to={`/${link || nameLink}`}>
+          <Nav.Link>{name}</Nav.Link>
+        </LinkContainer>
+      ) : (
+        <Nav.Link disabled>{name}</Nav.Link>
+      )}
+    </Nav.Item>
+  )
+}
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (

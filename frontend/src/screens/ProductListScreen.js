@@ -11,6 +11,7 @@ import {
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import CreateButton from '../components/core/Button/CreateButton'
 import IconButton from '../components/core/Button/IconButton'
+import Price from '../components/core/Price/Price'
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -107,7 +108,9 @@ const ProductListScreen = ({ history, match }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>
+                    <Price value={product.price} />
+                  </td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>

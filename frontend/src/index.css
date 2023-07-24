@@ -53,9 +53,6 @@ h2 {
 .text-dark {
   color: #212529 !important;
 }
-/* success
-.text-info
-.text-danger */
 
 /* TOOLTIP CUSTOM COLOR */
 #tooltip-success > .tooltip-inner {

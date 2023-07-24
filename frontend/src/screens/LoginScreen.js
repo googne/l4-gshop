@@ -6,6 +6,7 @@ import FormContainer from '../components/core/FormContainer'
 import { login } from '../actions/userActions'
 import Loader from '../components/core/Loader'
 import Message from '../components/core/Message'
+import FormInput from '../components/core/FormInput'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('admin@example.com')
@@ -16,7 +17,6 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  // const isRedirect = userInfo ? Object.keys(userInfo).length !== 0 : false
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
@@ -35,26 +35,13 @@ const LoginScreen = ({ location, history }) => {
       <h1>Sign In</h1>
       {error && <Message variant='danger'>{error}</Message>}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='email' className='pb-4'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter Email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId='password' className='pb-4'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-
+        <FormInput name='email' value={email} onChange={setEmail} />
+        <FormInput
+          type='password'
+          name='password'
+          value={password}
+          onChange={setPassword}
+        />
         <Button type='submit' variant='primary'>
           {loading && <Loader size='sm' />}
           Sign In

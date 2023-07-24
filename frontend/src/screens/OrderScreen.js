@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
-import ListGroupItem from '../components/core/ListGroupItem'
+import PriceList from '../components/core/Price/PriceList'
 import {
   deliverOrder,
   getOrderDetails,
@@ -18,6 +18,8 @@ import {
 } from '../constants/orderConstants'
 import MailTo from '../components/core/MailTo'
 import NA from '../components/core/NA'
+import Paragraph from '../components/core/Paragraph'
+import PriceDescription from '../components/core/Price/PriceDescription'
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
@@ -106,19 +108,17 @@ const OrderScreen = ({ match, history }) => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p>
-                <strong>Name: </strong> {order.user ? order.user.name : <NA />}
-              </p>
-              <p>
-                <strong>Email: </strong>
+              <Paragraph heading='Name'>
+                {order.user ? order.user.name : <NA />}
+              </Paragraph>
+              <Paragraph heading='Email'>
                 {order.user ? <MailTo email={order.user.email} /> : <NA />}
-              </p>
-              <p>
-                <strong>Address: </strong>
+              </Paragraph>
+              <Paragraph heading='Address'>
                 {order.shippingAddress.address}, {order.shippingAddress.city}
                 {order.shippingAddress.postalCode},
                 {order.shippingAddress.country}
-              </p>
+              </Paragraph>
               {order.isDelivered ? (
                 <Message variant='success'>
                   Delivered on {order.deliveredAt}
@@ -130,10 +130,9 @@ const OrderScreen = ({ match, history }) => {
 
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <p>
-                <strong>Method: </strong>
+              <Paragraph heading='Payment Method'>
                 {order.paymentMethod}
-              </p>
+              </Paragraph>
               {order.isPaid ? (
                 <Message variant='success'>Paid on {order.paidAt}</Message>
               ) : (
@@ -164,8 +163,7 @@ const OrderScreen = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} X ${item.price} = $
-                          {addDecimals(item.qty * item.price)}
+                          <PriceDescription qty={item.qty} price={item.price} />
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -182,20 +180,11 @@ const OrderScreen = ({ match, history }) => {
                 <h2> Order Summary</h2>
               </ListGroup.Item>
 
-              <ListGroupItem label='Items'>${order.itemsPrice}</ListGroupItem>
-
-              <ListGroupItem label='Shipping'>
-                ${order.shippingPrice}
-              </ListGroupItem>
-
-              <ListGroupItem label='Tax'>${order.taxPrice}</ListGroupItem>
-
-              <ListGroupItem label='Total'>${order.totalPrice}</ListGroupItem>
+              <PriceList data={order} />
 
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
-                  {/* {errorPay && <Message variant='danger'>{errorPay}</Message>} */}
                   {!sdkReady ? (
                     <Loader />
                   ) : (

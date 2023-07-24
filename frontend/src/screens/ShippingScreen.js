@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/core/FormContainer'
-import FormGroup from '../components/core/FormGroup'
+import FormInput from '../components/core/FormInput'
 import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 
@@ -30,21 +30,21 @@ const ShippingScreen = ({ history }) => {
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
-        <FormGroup
+        <FormInput
           name='address'
           value={address}
           onChange={setAddress}
           required
         />
-        <FormGroup name='city' value={city} onChange={setCity} required />
-        <FormGroup
+        <FormInput name='city' value={city} onChange={setCity} required />
+        <FormInput
           type='number'
           name='Postal Code'
           value={postalCode}
           onChange={setPostalCode}
           required
         />
-        <FormGroup
+        <FormInput
           name='country'
           value={country}
           onChange={setCountry}
