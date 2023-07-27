@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/core/Message'
 import PriceList from '../components/core/Price/PriceList'
 import { createOrder } from '../actions/orderActions'
-import Loader from '../components/core/Loader'
 import Paragraph from '../components/core/Paragraph'
 import PriceDescription from '../components/core/Price/PriceDescription'
+import { PLACE_ORDER_ICON } from '../constants/iconConstants'
+import BlockButton from '../components/core/Button/BlockButton'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -125,17 +126,13 @@ const PlaceOrderScreen = ({ history }) => {
                 {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
 
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={cartItems === 0}
-                  onClick={placeOrderHandler}
-                >
-                  {loading && <Loader size='sm' />}
-                  Place Order
-                </Button>
-              </ListGroup.Item>
+              <BlockButton
+                disabled={cartItems}
+                onClick={placeOrderHandler}
+                icon={PLACE_ORDER_ICON}
+                label='Place Order'
+                loader={loading}
+              />
             </ListGroup>
           </Card>
         </Col>

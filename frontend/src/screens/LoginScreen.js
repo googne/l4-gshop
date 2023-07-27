@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/core/FormContainer'
 import { login } from '../actions/userActions'
-import Loader from '../components/core/Loader'
 import Message from '../components/core/Message'
 import FormInput from '../components/core/FormInput'
+import SubmitButton from '../components/core/Button/SubmitButton'
+import { SIGN_IN_ICON } from '../constants/iconConstants'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('admin@example.com')
@@ -42,10 +43,7 @@ const LoginScreen = ({ location, history }) => {
           value={password}
           onChange={setPassword}
         />
-        <Button type='submit' variant='primary'>
-          {loading && <Loader size='sm' />}
-          Sign In
-        </Button>
+        <SubmitButton icon={SIGN_IN_ICON} label='Sign In' loading={loading} />
       </Form>
 
       <Row className='py-3'>

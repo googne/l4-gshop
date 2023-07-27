@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 
-import { Form, Button, Row, Col, Table } from 'react-bootstrap'
+import { Form, Row, Col, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { getLoginUserOrderList } from '../actions/orderActions'
@@ -12,6 +11,8 @@ import StatusIcon from '../components/core/StatusIcon'
 import FormInput from '../components/core/FormInput'
 import Price from '../components/core/Price/Price'
 import Date from '../components/core/Date'
+import UpdateButton from '../components/core/Button/UpdateButton'
+import IconButton from '../components/core/Button/IconButton'
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -105,10 +106,7 @@ const ProfileScreen = ({ history }) => {
                   value={confirmPassword}
                   onChange={setConfirmPassword}
                 />
-                <Button type='submit' variant='primary'>
-                  {loadingUserUpdate && <Loader size='sm' />}
-                  Update
-                </Button>
+                <UpdateButton loader={loadingUserUpdate} />
               </Form>
             </>
           )}
@@ -155,11 +153,7 @@ const ProfileScreen = ({ history }) => {
                       </StatusIcon>
                     </td>
                     <td>
-                      <LinkContainer to={`/order/${order._id}`}>
-                        <Button className='btn-sm' variant='light'>
-                          Details
-                        </Button>
-                      </LinkContainer>
+                      <IconButton type='detail' link={`/order/${order._id}`} />
                     </td>
                   </tr>
                 ))}

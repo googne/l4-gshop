@@ -6,6 +6,8 @@ import Message from '../components/core/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import Price from '../components/core/Price/Price'
 import Paragraph from '../components/core/Paragraph'
+import { CONTINUE_ICON } from '../constants/iconConstants'
+import BlockButton from '../components/core/Button/BlockButton'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -101,17 +103,13 @@ const CartScreen = ({ match, location, history }) => {
                 />
               </Paragraph>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                Proceed To Checkout
-                <i className='fa fa-arrow-right ml-2'></i>
-              </Button>
-            </ListGroup.Item>
+            <BlockButton
+              disabled={cartItems.length}
+              onClick={checkoutHandler}
+              icon={CONTINUE_ICON}
+              iconRight='true'
+              label='Proceed To Checkout'
+            />
           </ListGroup>
         </Card>
       </Col>

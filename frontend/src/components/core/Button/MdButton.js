@@ -2,13 +2,23 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import Loader from '../Loader'
 
-const MdButton = ({ className, label, icon, variant, onClick, loader }) => {
-  const btnProps = { className: className || 'my-3', variant, onClick }
+const MdButton = ({
+  className,
+  label,
+  icon,
+  variant,
+  onClick,
+  loader,
+  type,
+  iconRight,
+}) => {
+  const btnProps = { className: className || 'my-3', variant, onClick, type }
   return (
     <Button {...btnProps}>
       {loader && <Loader size='sm' />}
-      <i className={`fas fa-${icon} mr-1`} />
+      {!iconRight && <i className={`${icon} mr-1`} />}
       {label}
+      {iconRight && <i className={`${icon} ml-1`} />}
     </Button>
   )
 }

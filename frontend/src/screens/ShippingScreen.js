@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/core/FormContainer'
 import FormInput from '../components/core/FormInput'
 import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
+import ContinueButton from '../components/core/Button/ContinueButton'
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
@@ -52,10 +53,7 @@ const ShippingScreen = ({ history }) => {
             required
           />
 
-          <Button type='submit' variant='primary'>
-            Continue
-            <i className='fa fa-arrow-right ml-1' />
-          </Button>
+          <ContinueButton />
         </Form>
       </FormContainer>
     </>

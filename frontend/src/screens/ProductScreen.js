@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetails } from '../actions/productActions'
 import BackButton from '../components/core/Button/BackButton'
@@ -9,6 +9,8 @@ import Message from '../components/core/Message'
 import Paragraph from '../components/core/Paragraph'
 import Price from '../components/core/Price/Price'
 import Heading from '../components/core/Heading'
+import BlockButton from '../components/core/Button/BlockButton'
+import { CART_ICON } from '../constants/iconConstants'
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
@@ -91,16 +93,12 @@ const ProductScreen = ({ history, match }) => {
                     </Form.Control>
                   </Paragraph>
                 )}
-                <ListGroup.Item>
-                  <Button
-                    className='btn-block'
-                    disabled={product.countInStock === 0}
-                    onClick={addToCartHandler}
-                  >
-                    <i className='fa fa-cart-plus mr-1'></i>
-                    Add to Cart
-                  </Button>
-                </ListGroup.Item>
+                <BlockButton
+                  disabled={product.countInStock}
+                  onClick={addToCartHandler}
+                  icon={CART_ICON}
+                  label='Add to Cart'
+                />
               </ListGroup>
             </Card>
           </Col>

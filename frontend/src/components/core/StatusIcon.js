@@ -9,7 +9,7 @@ const StatusIcon = ({ condition, circle, children }) => {
       ) : (
         <i
           className={`fa fa-${condition ? 'check' : 'times'}${
-            circle && '-circle ml-1'
+            circle ? '-circle ml-1' : ''
           }`}
           style={{ color }}
         ></i>

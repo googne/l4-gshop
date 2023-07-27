@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
@@ -9,6 +9,7 @@ import FormInput from '../components/core/FormInput'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import BackButton from '../components/core/Button/BackButton'
+import UpdateButton from '../components/core/Button/UpdateButton'
 
 const ProductEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -194,10 +195,7 @@ const ProductEditScreen = ({ match, history }) => {
                 </Col>
               </Row>
 
-              <Button type='submit' variant='primary'>
-                {loadingUpdate && <Loader size='sm' />}
-                Update
-              </Button>
+              <UpdateButton loader={loadingUpdate} />
             </Form>
           </>
         )}

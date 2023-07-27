@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { Link } from 'react-router-dom'
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import PriceList from '../components/core/Price/PriceList'
@@ -20,6 +20,8 @@ import MailTo from '../components/core/MailTo'
 import NA from '../components/core/NA'
 import Paragraph from '../components/core/Paragraph'
 import PriceDescription from '../components/core/Price/PriceDescription'
+import { DELIVERED_ICON } from '../constants/iconConstants'
+import BlockButton from '../components/core/Button/BlockButton'
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
@@ -199,17 +201,12 @@ const OrderScreen = ({ match, history }) => {
                 userInfo.isAdmin &&
                 order.isPaid &&
                 !order.isDelivered && (
-                  <ListGroup.Item>
-                    <Button
-                      type='button'
-                      className='btn btn-block'
-                      onClick={deliverHandler}
-                    >
-                      <i className='fa fa-paper-plane mr-1'></i>
-                      Mark As Delivered
-                      {loadingDeliver && <Loader size='sm' />}
-                    </Button>
-                  </ListGroup.Item>
+                  <BlockButton
+                    onClick={deliverHandler}
+                    icon={DELIVERED_ICON}
+                    label='Mark As Delivered'
+                    loader={loadingDeliver}
+                  />
                 )}
             </ListGroup>
           </Card>

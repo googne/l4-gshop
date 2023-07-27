@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
 import { register } from '../actions/userActions'
 import Loader from '../components/core/Loader'
 import FormInput from '../components/core/FormInput'
+import { REGISTER_ICON } from '../constants/iconConstants'
+import SubmitButton from '../components/core/Button/SubmitButton'
 
 const RegisterScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -60,10 +62,7 @@ const RegisterScreen = ({ location, history }) => {
           value={confirmPassword}
           onChange={setConfirmPassword}
         />
-        <Button type='submit' variant='primary'>
-          {loading && <Loader size='sm' />}
-          Register
-        </Button>
+        <SubmitButton icon={REGISTER_ICON} label='Register' loading={loading} />
       </Form>
 
       <Row className='py-3'>

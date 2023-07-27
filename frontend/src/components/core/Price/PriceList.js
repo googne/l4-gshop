@@ -19,7 +19,7 @@ const PriceList = ({ data }) => {
   return (
     <>
       {Object.entries(priceData).map(([key, value]) => (
-        <Paragraph key={key} heading={key}>
+        <Paragraph listItem='true' key={key} heading={key}>
           <Price value={value} />
         </Paragraph>
       ))}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import FormContainer from '../components/core/FormContainer'
@@ -8,6 +8,7 @@ import Loader from '../components/core/Loader'
 import FormInput from '../components/core/FormInput'
 import { USER_UPDATE_RESET } from '../constants/userConstants'
 import BackButton from '../components/core/Button/BackButton'
+import UpdateButton from '../components/core/Button/UpdateButton'
 
 const UserEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -83,10 +84,7 @@ const UserEditScreen = ({ match, history }) => {
                 ></Form.Check>
               </Form.Group>
 
-              <Button type='submit' variant='primary'>
-                {loadingUpdate && <Loader size='sm' />}
-                Update
-              </Button>
+              <UpdateButton loader={loadingUpdate} />
             </Form>
           </>
         )}

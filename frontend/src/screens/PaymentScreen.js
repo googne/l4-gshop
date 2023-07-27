@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Form, Button, Col } from 'react-bootstrap'
+import { Form, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/core/FormContainer'
 import { savePaymentMethod } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/core/Message'
+import ContinueButton from '../components/core/Button/ContinueButton'
 
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart)
@@ -57,10 +58,7 @@ const PaymentScreen = ({ history }) => {
             </Col>
           </Form.Group>
 
-          <Button type='submit' variant='primary'>
-            Continue
-            <i className='fa fa-arrow-right ml-1' />
-          </Button>
+          <ContinueButton />
         </Form>
       </FormContainer>
     </>
