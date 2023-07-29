@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/core/Message'
 import { deleteUser, listUsers } from '../actions/userActions'
 import Loader from '../components/core/Loader'
-import MailTo from '../components/core/MailTo'
+import Email from '../components/core/Email'
 import StatusIcon from '../components/core/StatusIcon'
 import IconButton from '../components/core/Button/IconButton'
 
@@ -58,7 +58,7 @@ const UserListScreen = ({ history }) => {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>
-                  <MailTo email={user.email} />
+                  <Email email={user.email} />
                 </td>
                 <td>
                   <StatusIcon condition={user.isAdmin} />

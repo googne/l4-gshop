@@ -1,4 +1,5 @@
 import React from 'react'
+import { BACK_ICON } from '../../../constants/iconConstants'
 import MdButton from './MdButton'
 
 const BackButton = ({ onClick }) => {
@@ -6,7 +7,7 @@ const BackButton = ({ onClick }) => {
     <MdButton
       onClick={onClick}
       variant='light'
-      icon='arrow-left'
+      icon={BACK_ICON}
       label='Go Back'
     />
   )

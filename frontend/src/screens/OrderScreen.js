@@ -16,7 +16,7 @@ import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../constants/orderConstants'
-import MailTo from '../components/core/MailTo'
+import Email from '../components/core/Email'
 import NA from '../components/core/NA'
 import Paragraph from '../components/core/Paragraph'
 import PriceDescription from '../components/core/Price/PriceDescription'
@@ -114,7 +114,7 @@ const OrderScreen = ({ match, history }) => {
                 {order.user ? order.user.name : <NA />}
               </Paragraph>
               <Paragraph heading='Email'>
-                {order.user ? <MailTo email={order.user.email} /> : <NA />}
+                {order.user ? <Email email={order.user.email} /> : <NA />}
               </Paragraph>
               <Paragraph heading='Address'>
                 {order.shippingAddress.address}, {order.shippingAddress.city}
