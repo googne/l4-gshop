@@ -10,7 +10,7 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import StatusIcon from '../components/core/StatusIcon'
 import FormInput from '../components/core/FormInput'
 import Price from '../components/core/Price/Price'
-import Date from '../components/core/Date'
+import GDate from '../components/core/GDate'
 import UpdateButton from '../components/core/Button/UpdateButton'
 import IconButton from '../components/core/Button/IconButton'
 
@@ -139,7 +139,7 @@ const ProfileScreen = ({ history }) => {
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>
-                      <Date value={order.createdAt} />
+                      <GDate value={order.createdAt} />
                     </td>
                     <td>
                       <Price value={order.totalPrice} />

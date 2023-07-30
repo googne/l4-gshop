@@ -8,7 +8,7 @@ import { listOrders } from '../actions/orderActions'
 import StatusIcon from '../components/core/StatusIcon'
 import NA from '../components/core/NA'
 import Price from '../components/core/Price/Price'
-import Date from '../components/core/Date'
+import GDate from '../components/core/GDate'
 
 const OrderListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -53,19 +53,19 @@ const OrderListScreen = ({ history, match }) => {
                   <td>{order._id}</td>
                   <td>{(order.user && order.user.name) || <NA />}</td>
                   <td>
-                    <Date value={order.createdAt} />
+                    <GDate value={order.createdAt} />
                   </td>
                   <td>
                     <Price value={order.totalPrice} />
                   </td>
                   <td>
                     <StatusIcon condition={order.isPaid}>
-                      {order.isPaid && <Date value={order.paidAt} />}
+                      {order.isPaid && <GDate value={order.paidAt} />}
                     </StatusIcon>
                   </td>
                   <td>
                     <StatusIcon condition={order.isDelivered}>
-                      {order.isDelivered && <Date value={order.deliveredAt} />}
+                      {order.isDelivered && <GDate value={order.deliveredAt} />}
                     </StatusIcon>
                   </td>
                   <td>

@@ -12,7 +12,7 @@ import Loader from '../components/core/Loader'
 import Message from '../components/core/Message'
 import Paragraph from '../components/core/Paragraph'
 import Price from '../components/core/Price/Price'
-import Date from '../components/core/Date'
+import GDate from '../components/core/GDate'
 import Heading from '../components/core/Heading'
 import BlockButton from '../components/core/Button/BlockButton'
 import { CART_ICON, SUBMIT_ICON } from '../constants/iconConstants'
@@ -177,7 +177,7 @@ const ProductScreen = ({ history, match }) => {
                     <strong>{review.name}</strong>
                     <Rating value={review.rating} />
                     <p>
-                      <Date value={review.createdAt} />
+                      <GDate value={review.createdAt} />
                     </p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
