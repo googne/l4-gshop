@@ -37,16 +37,6 @@ const ProductListScreen = ({ history, match }) => {
     product: createdProduct,
   } = productCreate
 
-  const productData = products.map((product) => {
-    return {
-      _id: product._id,
-      name: product.name,
-      price: product.price,
-      category: product.category,
-      brand: product.brand,
-    }
-  })
-
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET })
 

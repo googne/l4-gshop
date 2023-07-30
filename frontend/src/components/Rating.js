@@ -1,7 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
 
-const Rating = ({ value, text, color }) => {
+const Rating = ({ value, text }) => {
+  const [color, setColor] = useState('#fcba03')
+
+  useEffect(() => {
+    if (value) {
+      if (value <= 2) {
+        setColor('red')
+      } else if (value <= 4) {
+        setColor('#fcba03')
+      } else {
+        setColor('#198754')
+      }
+    }
+  }, [value])
+
   return (
     <div className='rating'>
       {[1, 2, 3, 4, 5].map((e, i) => (
@@ -18,7 +31,7 @@ const Rating = ({ value, text, color }) => {
           />
         </span>
       ))}
-      <span>{text && text}</span>
+      <div>{text && text}</div>
     </div>
   )
 }
@@ -27,9 +40,4 @@ Rating.defaultProps = {
   color: '#fcba03',
 }
 
-Rating.propTypes = {
-  value: PropTypes.number,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string,
-}
 export default Rating

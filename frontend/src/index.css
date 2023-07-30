@@ -22,6 +22,10 @@ h2 {
   padding: 0.5rem 0;
 }
 
+.highlight-review {
+  background-color: rgba(217, 169, 39, 0.37);
+}
+
 .rating span {
   margin: 0.1rem;
 }

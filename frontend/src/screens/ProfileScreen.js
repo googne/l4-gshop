@@ -42,6 +42,12 @@ const ProfileScreen = ({ history }) => {
   const isOrderListAvail = orders && orders.length === 0
 
   useEffect(() => {
+    if (success) {
+      setMessage(null)
+      setPassword('')
+      setConfirmPassword('')
+    }
+
     if (!userInfo) {
       history.push('/login')
     } else {
@@ -51,9 +57,6 @@ const ProfileScreen = ({ history }) => {
         if (!success) {
           dispatch(getLoginUserOrderList())
         }
-        setMessage(null)
-        setPassword('')
-        setConfirmPassword('')
       } else {
         setName(user.name)
         setEmail(user.email)
