@@ -12,15 +12,17 @@ import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import CreateButton from '../components/core/Button/CreateButton'
 import IconButton from '../components/core/Button/IconButton'
 import Price from '../components/core/Price/Price'
+import Paginate from '../components/Paginate'
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
+  const pageNumber = match.params.pageNumber || 1
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, pages, page } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -47,7 +49,7 @@ const ProductListScreen = ({ history, match }) => {
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts('', pageNumber))
     }
   }, [
     dispatch,
@@ -56,6 +58,7 @@ const ProductListScreen = ({ history, match }) => {
     successDelete,
     successCreate,
     createdProduct,
+    pageNumber,
   ])
 
   const deleteHandler = (id) => {
@@ -131,6 +134,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>
