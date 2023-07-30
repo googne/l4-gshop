@@ -12,3 +12,4 @@ export const DETAIL_ICON = 'fa fa-info'
 export const CREATE_PRODUCT_ICON = 'fa fa-plus-circle'
 export const BACK_ICON = 'fa fa-arrow-left'
 export const SUBMIT_ICON = CHECK_CIRCLE
+export const SEARCH_ICON = 'fa fa-search'
