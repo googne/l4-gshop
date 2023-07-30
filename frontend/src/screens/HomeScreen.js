@@ -7,8 +7,10 @@ import Message from '../components/core/Message'
 import Loader from '../components/core/Loader'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
+import BackButton from '../components/core/Button/BackButton'
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ history, match }) => {
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || 1
 
@@ -21,9 +23,14 @@ const HomeScreen = ({ match }) => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
 
+  const goBackHandler = () => {
+    history.goBack()
+  }
+
   return (
     <>
-      {!keyword && <ProductCarousel />}
+      <Meta />
+      {!keyword ? <ProductCarousel /> : <BackButton onClick={goBackHandler} />}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
