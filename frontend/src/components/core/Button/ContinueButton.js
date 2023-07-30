@@ -1,17 +1,9 @@
 import React from 'react'
 import { CONTINUE_ICON } from '../../../constants/iconConstants'
-import MdButton from './MdButton'
+import SubmitButton from './SubmitButton'
 
 const ContinueButton = () => {
-  return (
-    <MdButton
-      type='submit'
-      variant='primary'
-      icon={CONTINUE_ICON}
-      iconRight='true'
-      label='Update'
-    />
-  )
+  return <SubmitButton icon={CONTINUE_ICON} iconRight='true' label='Continue' />
 }
 
 export default ContinueButton
