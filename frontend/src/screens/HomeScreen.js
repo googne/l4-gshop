@@ -50,7 +50,8 @@ const HomeScreen = ({ history, match }) => {
           <Paginate
             pages={pages}
             page={page}
-            keyword={keyword ? keyword : ''}
+            // keyword={keyword ? keyword : ''}
+            history={history}
           />
         </>
       )}

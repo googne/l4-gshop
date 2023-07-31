@@ -2,20 +2,17 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const SearchBox = ({ pages, page, isAdmin = false, keyword = '' }) => {
+const SearchBox = ({ pages, page, history }) => {
+  const location = history && history.location.pathname.split('/page')[0]
+
   return (
     pages > 1 && (
-      <Pagination>
+      <Pagination className='justify-content-center mt-2'>
         {[...Array(pages).keys()].map((x) => (
-          <LinkContainer
-            key={x + 1}
-            to={
-              !isAdmin
-                ? `${keyword ? `/search/${keyword}` : ``}/page/${x + 1}`
-                : `/admin/productlist/${x + 1}`
-            }
-          >
-            <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
+          <LinkContainer key={x + 1} to={`${location}/page/${x + 1}`}>
+            <Pagination.Item active={x + 1 === page} className='mr-1'>
+              {x + 1}
+            </Pagination.Item>
           </LinkContainer>
         ))}
       </Pagination>

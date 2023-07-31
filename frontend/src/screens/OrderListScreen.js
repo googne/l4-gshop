@@ -9,22 +9,25 @@ import StatusIcon from '../components/core/StatusIcon'
 import NA from '../components/core/NA'
 import Price from '../components/core/Price/Price'
 import GDate from '../components/core/GDate'
+import Paginate from '../components/Paginate'
 
 const OrderListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
+  const pageNumber = match.params.pageNumber || 1
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   const orderList = useSelector((state) => state.orderList)
-  const { loading, error, orders } = orderList
+  const { loading, error, orders, pages, page } = orderList
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listOrders())
+      dispatch(listOrders(pageNumber))
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, pageNumber])
 
   return (
     <>
@@ -75,6 +78,7 @@ const OrderListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
+          <Paginate pages={pages} page={page} history={history} />
         </>
       )}
     </>
