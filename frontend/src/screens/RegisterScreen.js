@@ -62,7 +62,7 @@ const RegisterScreen = ({ location, history }) => {
           value={confirmPassword}
           onChange={setConfirmPassword}
         />
-        <SubmitButton icon={REGISTER_ICON} label='Register' loading={loading} />
+        <SubmitButton icon={REGISTER_ICON} label='Register' loader={loading} />
       </Form>
 
       <Row className='py-3'>

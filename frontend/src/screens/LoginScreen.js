@@ -10,8 +10,8 @@ import SubmitButton from '../components/core/Button/SubmitButton'
 import { SIGN_IN_ICON } from '../constants/iconConstants'
 
 const LoginScreen = ({ location, history }) => {
-  const [email, setEmail] = useState('admin@example.com')
-  const [password, setPassword] = useState('123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
 
@@ -43,7 +43,7 @@ const LoginScreen = ({ location, history }) => {
           value={password}
           onChange={setPassword}
         />
-        <SubmitButton icon={SIGN_IN_ICON} label='Sign In' loading={loading} />
+        <SubmitButton icon={SIGN_IN_ICON} label='Sign In' loader={loading} />
       </Form>
 
       <Row className='py-3'>
