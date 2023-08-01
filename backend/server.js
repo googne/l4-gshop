@@ -21,6 +21,7 @@ const app = express()
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
+
 // it will allow to accept json format to its body
 app.use(express.json())
 
