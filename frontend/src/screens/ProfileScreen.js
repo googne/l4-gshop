@@ -13,8 +13,9 @@ import Price from '../components/core/Price/Price'
 import GDate from '../components/core/GDate'
 import UpdateButton from '../components/core/Button/UpdateButton'
 import IconButton from '../components/core/Button/IconButton'
+import Paginate from '../components/Paginate'
 
-const ProfileScreen = ({ history }) => {
+const ProfileScreen = ({ history, match }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -22,6 +23,7 @@ const ProfileScreen = ({ history }) => {
   const [message, setMessage] = useState(null)
 
   const dispatch = useDispatch()
+  const pageNumber = match.params.pageNumber || 1
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
@@ -37,6 +39,8 @@ const ProfileScreen = ({ history }) => {
     loading: loadingOrders,
     error: errorOrders,
     orders,
+    pages,
+    page,
   } = loginUserOrderList
 
   const isOrderListAvail = orders && orders.length === 0
@@ -58,9 +62,9 @@ const ProfileScreen = ({ history }) => {
         setName(user.name)
         setEmail(user.email)
       }
-      dispatch(getLoginUserOrderList())
+      dispatch(getLoginUserOrderList(pageNumber))
     }
-  }, [dispatch, history, userInfo, user, success])
+  }, [dispatch, history, userInfo, user, success, pageNumber])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -121,46 +125,52 @@ const ProfileScreen = ({ history }) => {
           ) : isOrderListAvail ? (
             <Message variant='info'>No Order Available</Message>
           ) : (
-            <Table striped bordered hover responsive className='table-sm'>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>DATE</th>
-                  <th>TOTAL</th>
-                  <th>PAID</th>
-                  <th>DELIVERED</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>
-                      <GDate value={order.createdAt} />
-                    </td>
-                    <td>
-                      <Price value={order.totalPrice} />
-                    </td>
-                    <td>
-                      <StatusIcon condition={order.isPaid}>
-                        {order.isPaid && <GDate value={order.paidAt} />}
-                      </StatusIcon>
-                    </td>
-                    <td>
-                      <StatusIcon condition={order.isDelivered}>
-                        {order.isDelivered && (
-                          <GDate value={order.deliveredAt} />
-                        )}
-                      </StatusIcon>
-                    </td>
-                    <td>
-                      <IconButton type='detail' link={`/order/${order._id}`} />
-                    </td>
+            <>
+              <Table striped bordered hover responsive className='table-sm'>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>DATE</th>
+                    <th>TOTAL</th>
+                    <th>PAID</th>
+                    <th>DELIVERED</th>
+                    <th></th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>
+                        <GDate value={order.createdAt} />
+                      </td>
+                      <td>
+                        <Price value={order.totalPrice} />
+                      </td>
+                      <td>
+                        <StatusIcon condition={order.isPaid}>
+                          {order.isPaid && <GDate value={order.paidAt} />}
+                        </StatusIcon>
+                      </td>
+                      <td>
+                        <StatusIcon condition={order.isDelivered}>
+                          {order.isDelivered && (
+                            <GDate value={order.deliveredAt} />
+                          )}
+                        </StatusIcon>
+                      </td>
+                      <td>
+                        <IconButton
+                          type='detail'
+                          link={`/order/${order._id}`}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <Paginate pages={pages} page={page} history={history} />
+            </>
           )}
         </Col>
       </Row>

@@ -88,8 +88,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getUserOrders = asyncHandler(async (req, res) => {
+  const pageSize = 5
+  const page = Number(req.query.pageNumber) || 1
+
+  const count = await Order.count({ user: req.user._id })
   const orders = await Order.find({ user: req.user._id })
-  res.json(orders)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+  res.json({ orders, page, pages: Math.ceil(count / pageSize) })
 })
 
 /**

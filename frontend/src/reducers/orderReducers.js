@@ -75,7 +75,8 @@ export const loginUserOrderListReducer = (state = { orders: [] }, action) => {
     case LOGIN_USER_ORDER_LIST_REQUEST:
       return { loading: true }
     case LOGIN_USER_ORDER_LIST_SUCCESS:
-      return { loading: false, orders: action.payload }
+      const { orders, pages, page } = action.payload
+      return { loading: false, orders, pages, page }
     case LOGIN_USER_ORDER_LIST_FAIL:
       return { loading: false, error: action.payload }
     case LOGIN_USER_ORDER_LIST_RESET:
