@@ -42,25 +42,23 @@ const ProfileScreen = ({ history }) => {
   const isOrderListAvail = orders && orders.length === 0
 
   useEffect(() => {
-    if (success) {
-      setMessage(null)
-      setPassword('')
-      setConfirmPassword('')
-    }
-
     if (!userInfo) {
       history.push('/login')
     } else {
+      if (success) {
+        setMessage(null)
+        setPassword('')
+        setConfirmPassword('')
+      }
+
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
-        if (!success) {
-          dispatch(getLoginUserOrderList())
-        }
       } else {
         setName(user.name)
         setEmail(user.email)
       }
+      dispatch(getLoginUserOrderList())
     }
   }, [dispatch, history, userInfo, user, success])
 
