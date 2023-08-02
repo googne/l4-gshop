@@ -146,13 +146,14 @@ const ProfileScreen = ({ history }) => {
                     </td>
                     <td>
                       <StatusIcon condition={order.isPaid}>
-                        {(order.isPaid && order.paidAt.substring(0, 10)) || ''}
+                        {order.isPaid && <GDate value={order.paidAt} />}
                       </StatusIcon>
                     </td>
                     <td>
                       <StatusIcon condition={order.isDelivered}>
-                        {order.isDelivered &&
-                          order.deliveredAt.substring(0, 10)}
+                        {order.isDelivered && (
+                          <GDate value={order.deliveredAt} />
+                        )}
                       </StatusIcon>
                     </td>
                     <td>

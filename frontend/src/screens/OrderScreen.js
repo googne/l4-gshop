@@ -22,6 +22,7 @@ import Paragraph from '../components/core/Paragraph'
 import PriceDescription from '../components/core/Price/PriceDescription'
 import { DELIVERED_ICON } from '../constants/iconConstants'
 import BlockButton from '../components/core/Button/BlockButton'
+import GDate from '../components/core/GDate'
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
@@ -123,7 +124,8 @@ const OrderScreen = ({ match, history }) => {
               </Paragraph>
               {order.isDelivered ? (
                 <Message variant='success'>
-                  Delivered on {order.deliveredAt}
+                  Delivered on{' '}
+                  <GDate value={order.deliveredAt} type='datetime' />
                 </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
@@ -136,7 +138,9 @@ const OrderScreen = ({ match, history }) => {
                 {order.paymentMethod}
               </Paragraph>
               {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+                <Message variant='success'>
+                  Paid on <GDate value={order.paidAt} type='datetime' />
+                </Message>
               ) : (
                 <Message variant='danger'>Not Paid</Message>
               )}

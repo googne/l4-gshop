@@ -3,7 +3,10 @@ import { Pagination } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 const SearchBox = ({ pages, page, history }) => {
-  const location = history && history.location.pathname.split('/page')[0]
+  let location = history && history.location.pathname.split('/page')[0]
+  if (location === '/') {
+    location = ''
+  }
 
   return (
     pages > 1 && (
