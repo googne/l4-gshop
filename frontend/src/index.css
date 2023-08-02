@@ -58,6 +58,14 @@ h2 {
   color: #212529 !important;
 }
 
+.text-light {
+  color: white !important;
+}
+
+.text-bolder {
+  font-weight: 900 !important;
+}
+
 /* TOOLTIP CUSTOM COLOR */
 #tooltip-success > .tooltip-inner {
   background-color: #198754;
