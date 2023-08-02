@@ -13,6 +13,7 @@ import CreateButton from '../components/core/Button/CreateButton'
 import IconButton from '../components/core/Button/IconButton'
 import Price from '../components/core/Price/Price'
 import Paginate from '../components/Paginate'
+import Count from '../components/Count'
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const ProductListScreen = ({ history, match }) => {
   const { userInfo } = userLogin
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products, pages, page } = productList
+  const { loading, error, products, count, pages, page } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -75,7 +76,14 @@ const ProductListScreen = ({ history, match }) => {
     <>
       <Row className='align-items-center'>
         <Col>
-          <h1>Products</h1>
+          <h1>
+            Products
+            <Count
+              type='short'
+              current={products && products.length}
+              total={count}
+            />
+          </h1>
         </Col>
         <Col className='text-right'>
           <CreateButton
@@ -134,6 +142,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
+          <Count current={products.length} total={count} />
           <Paginate pages={pages} page={page} history={history} />
         </>
       )}

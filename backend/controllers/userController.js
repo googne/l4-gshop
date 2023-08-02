@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import User from '../models/userModel.js'
+import { USERS_PAGE_SIZE } from '../constants.js'
 
 /**
  * @desc Auth user & get token
@@ -117,8 +118,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
  * @access Private/Admin
  */
 const getUsers = asyncHandler(async (req, res) => {
+  const pageSize = USERS_PAGE_SIZE
+  const page = Number(req.query.pageNumber) || 1
+
+  const count = await User.countDocuments({})
   const users = await User.find({})
-  res.json(users)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+  res.json({ users, count, page, pages: Math.ceil(count / pageSize) })
 })
 
 /**

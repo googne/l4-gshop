@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+import { MY_ORDERS_PAGE_SIZE, ORDERS_PAGE_SIZE } from '../constants.js'
 import Order from '../models/orderModel.js'
 
 /**
@@ -88,14 +89,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
  * @access Private
  */
 const getUserOrders = asyncHandler(async (req, res) => {
-  const pageSize = 5
+  const pageSize = MY_ORDERS_PAGE_SIZE
   const page = Number(req.query.pageNumber) || 1
 
-  const count = await Order.count({ user: req.user._id })
+  const count = await Order.countDocuments({ user: req.user._id })
   const orders = await Order.find({ user: req.user._id })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-  res.json({ orders, page, pages: Math.ceil(count / pageSize) })
+  res.json({ orders, count, page, pages: Math.ceil(count / pageSize) })
 })
 
 /**
@@ -104,15 +105,15 @@ const getUserOrders = asyncHandler(async (req, res) => {
  * @access Private/Admin
  */
 const getOrders = asyncHandler(async (req, res) => {
-  const pageSize = 7
+  const pageSize = ORDERS_PAGE_SIZE
   const page = Number(req.query.pageNumber) || 1
 
-  const count = await Order.count({})
+  const count = await Order.countDocuments({})
   const orders = await Order.find({})
     .limit(pageSize)
     .skip(pageSize * (page - 1))
     .populate('user', 'id name')
-  res.json({ orders, page, pages: Math.ceil(count / pageSize) })
+  res.json({ orders, count, page, pages: Math.ceil(count / pageSize) })
 })
 
 /**

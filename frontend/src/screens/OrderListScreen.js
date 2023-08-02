@@ -10,6 +10,7 @@ import NA from '../components/core/NA'
 import Price from '../components/core/Price/Price'
 import GDate from '../components/core/GDate'
 import Paginate from '../components/Paginate'
+import Count from '../components/Count'
 
 const OrderListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const OrderListScreen = ({ history, match }) => {
   const { userInfo } = userLogin
 
   const orderList = useSelector((state) => state.orderList)
-  const { loading, error, orders, pages, page } = orderList
+  const { loading, error, orders, count, pages, page } = orderList
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -31,7 +32,10 @@ const OrderListScreen = ({ history, match }) => {
 
   return (
     <>
-      <h1>ORDERS</h1>
+      <h1>
+        ORDERS{' '}
+        <Count type='short' current={orders && orders.length} total={count} />
+      </h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -78,6 +82,7 @@ const OrderListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
+          <Count current={orders.length} total={count} />
           <Paginate pages={pages} page={page} history={history} />
         </>
       )}

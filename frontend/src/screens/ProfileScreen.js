@@ -14,6 +14,7 @@ import GDate from '../components/core/GDate'
 import UpdateButton from '../components/core/Button/UpdateButton'
 import IconButton from '../components/core/Button/IconButton'
 import Paginate from '../components/Paginate'
+import Count from '../components/Count'
 
 const ProfileScreen = ({ history, match }) => {
   const [name, setName] = useState('')
@@ -38,6 +39,7 @@ const ProfileScreen = ({ history, match }) => {
   const {
     loading: loadingOrders,
     error: errorOrders,
+    count,
     orders,
     pages,
     page,
@@ -117,7 +119,16 @@ const ProfileScreen = ({ history, match }) => {
           )}
         </Col>
         <Col md={9}>
-          <h2>My Order</h2>
+          <h2>
+            <span>
+              My Order
+              <Count
+                type='short'
+                current={orders && orders.length}
+                total={count}
+              />
+            </span>
+          </h2>
           {loadingOrders ? (
             <Loader />
           ) : errorOrders ? (
@@ -169,6 +180,7 @@ const ProfileScreen = ({ history, match }) => {
                   ))}
                 </tbody>
               </Table>
+              <Count current={orders && orders.length} total={count} />
               <Paginate pages={pages} page={page} history={history} />
             </>
           )}
