@@ -8,13 +8,14 @@ const MdButton = ({
   icon,
   variant,
   onClick,
+  disabled,
   loader,
   type,
   iconRight,
 }) => {
   const btnProps = { className: className || 'my-3', variant, onClick, type }
   return (
-    <Button {...btnProps}>
+    <Button {...btnProps} disabled={disabled === 0}>
       {loader && <Loader size='sm' />}
       {!iconRight && <i className={`${icon} mr-1`} />}
       {label}
