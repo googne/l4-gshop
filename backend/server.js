@@ -3,9 +3,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import morgan from 'morgan'
+import cors from 'cors'
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
-import { cors } from './middleware/proxyMiddleware.js'
 import connectDB from './config/db.js'
 
 import productRoutes from './routes/productRoutes.js'
@@ -18,6 +18,8 @@ dotenv.config()
 connectDB()
 
 const app = express()
+// it will allow to call cross origin url
+app.use(cors())
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
@@ -25,8 +27,6 @@ if (process.env.NODE_ENV === 'development') {
 
 // it will allow to accept json format to its body
 app.use(express.json())
-// it will allow to call cross origin url
-app.use(cors)
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
